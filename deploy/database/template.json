@@ -491,7 +491,7 @@
   "outputs": {
     "SqlServerFQDN": {
       "type": "string",
-      "value": "[reference(concat('Microsoft.Sql/servers', parameters('serverName'))).fullyQualifiedDomainName]"
+      "value": "[reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName]"
     }
   }
 }
