@@ -5,6 +5,16 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "src\Database\Database.sqlproj", "{2BCC622F-5C36-4E1F-A562-4B77F56E9DDD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AAFC0AF8-CD49-4F1D-8698-2CD48B282D0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{EC6538F4-2B48-4C37-9C9A-E86E42C5C6AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{C5ED6041-0249-460A-853E-CBE90E730EC5}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\database\parameters.json = deploy\database\parameters.json
+		deploy\database\template.json = deploy\database\template.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +30,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2BCC622F-5C36-4E1F-A562-4B77F56E9DDD} = {AAFC0AF8-CD49-4F1D-8698-2CD48B282D0D}
+		{C5ED6041-0249-460A-853E-CBE90E730EC5} = {EC6538F4-2B48-4C37-9C9A-E86E42C5C6AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E346CBB-5A80-4CE2-8EB0-359C66A92C0A}
