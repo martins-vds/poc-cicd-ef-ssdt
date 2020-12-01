@@ -13,6 +13,7 @@ namespace WebApplication.Controllers
     {
         private readonly DatabaseContext _context;
 
+        // Comment
         public ProductsController(DatabaseContext context)
         {
             _context = context;
