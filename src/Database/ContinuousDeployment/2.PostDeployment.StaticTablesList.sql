@@ -10,7 +10,4 @@
 
 */
 
-	:r .\StaticTables\Person.CountryRegion.sql
-	:r .\StaticTables\Sales.Currency.sql
-	:r .\StaticTables\Sales.CountryRegionCurrency.sql
-	:r .\StaticTables\Person.ContactType.sql
+	--:r .\StaticTables\StaticTableExample.sql

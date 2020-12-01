@@ -1,4 +1,5 @@
 ﻿
+
 CREATE FUNCTION [dbo].[ufnGetSalesOrderStatusText](@Status [tinyint])
 RETURNS [nvarchar](15) 
 AS 
