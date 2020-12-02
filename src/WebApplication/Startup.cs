@@ -20,7 +20,7 @@ namespace WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(Configuration["Web_DefaultConnection"]));
+                options.UseSqlServer(Configuration["DefaultConnection"]));
             services.AddControllersWithViews();
             services.AddDatabaseDeveloperPageExceptionFilter();
         }
