@@ -34,4 +34,3 @@ BEGIN
 END;
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Table value function returning every product category and its parent, if applicable.', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'FUNCTION', @level1name = N'ufnGetAllCategories';
-
