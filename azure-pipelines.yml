@@ -1,0 +1,73 @@
+# 'Allow scripts to access the OAuth token' was selected in pipeline.  Add the following YAML to any steps requiring access:
+#       env:
+#           MY_ACCESS_TOKEN: $(System.AccessToken)
+name: PoC - CI/CD with SSDT
+
+pool:
+    vmImage: windows-2019
+
+jobs:
+- job: Job_1
+  displayName: Build Database
+  steps:
+  - checkout: self
+    persistCredentials: True
+  - task: VSBuild@1
+    displayName: Build solution src/Database/Database.sqlproj
+    inputs:
+      solution: src/Database/Database.sqlproj
+      msbuildArgs: /p:OutputPath=bin\$(BuildConfiguration)
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
+      clean: true
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)\database'
+    inputs:
+      SourceFolder: src/Database
+      Contents: '**\bin\$(BuildConfiguration)\*.dacpac'
+      TargetFolder: $(Build.ArtifactStagingDirectory)\database
+      CleanTargetFolder: true
+      OverWrite: true
+      flattenFolders: true
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Database'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)\database
+      ArtifactName: Database
+  - task: DacPacReport@1
+    displayName: DacPac Schema Compare Database.dacpac
+    continueOnError: True
+    inputs:
+      dropName: Database
+      dacpacName: Database
+      targetDacPacPath: $(Build.ArtifactStagingDirectory)\database
+- job: Job_2
+  displayName: Build Web App
+  steps:
+  - checkout: self
+  - task: DotNetCoreCLI@2
+    displayName: dotnet restore
+    inputs:
+      command: restore
+      projects: src/WebApplication/WebApplication.csproj
+  - task: DotNetCoreCLI@2
+    displayName: dotnet build
+    inputs:
+      projects: src/WebApplication/WebApplication.csproj
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: dotnet test
+    inputs:
+      command: test
+      projects: '**/*[Tt]ests/*.csproj'
+      arguments: --configuration $(BuildConfiguration)
+  - task: DotNetCoreCLI@2
+    displayName: dotnet publish
+    inputs:
+      command: publish
+      arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)\web
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: web'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)\web
+      ArtifactName: web
